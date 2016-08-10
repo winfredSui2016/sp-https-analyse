@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron" style="padding: 10%; margin-top: 60px">
+            <form id="ssl_create" method="get" action="{% url 'ssl_create' %}">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-addon color-https border-color-https">
+                        <span class="glyphicon glyphicon-lock"></span>
+                        https://
+                    </div>
+
+                    <input type="text" required="required" name="domains"
+                           class="form-control border-color-https color-https"
+                           placeholder="enter your website to secure">
+
+                    <div class="input-group-btn">
+                        {# fixme 按钮在低分辨率屏幕上不能自适应, 导致输入网址的框被压缩掉了 #}
+                        <button class="btn btn-success" type="submit">Create Free SSL Certificate</button>
+
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="true">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="#">Upload CSR</a></li>
+                            <li><a href="#">Multiple Domains</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="row" style="margin-bottom: 100px">
+                    <div class="col-sm-6 col-md-4 text-center">
+                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDE5MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU2MzQ0NzYyNDIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTYzNDQ3NjI0MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI3MC4wNTQ2ODc1IiB5PSIxMDQuNSI+MTkyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+                             alt="...">
+                        <h3>100% Free Forever</h3>
+                        <p>Never pay for SSL again. Thanks to Letsencrypt the first non-profit CA.</p>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 text-center">
+                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDE5MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU2MzQ0NzYyNDIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTYzNDQ3NjI0MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI3MC4wNTQ2ODc1IiB5PSIxMDQuNSI+MTkyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+                             alt="...">
+                        <h3>100% Free Forever</h3>
+                        <p>Never pay for SSL again. Thanks to Letsencrypt the first non-profit CA.</p>
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 text-center">
+                        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDE5MiAyMDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzEwMCV4MjAwCkNyZWF0ZWQgd2l0aCBIb2xkZXIuanMgMi42LjAuCkxlYXJuIG1vcmUgYXQgaHR0cDovL2hvbGRlcmpzLmNvbQooYykgMjAxMi0yMDE1IEl2YW4gTWFsb3BpbnNreSAtIGh0dHA6Ly9pbXNreS5jbwotLT48ZGVmcz48c3R5bGUgdHlwZT0idGV4dC9jc3MiPjwhW0NEQVRBWyNob2xkZXJfMTU2MzQ0NzYyNDIgdGV4dCB7IGZpbGw6I0FBQUFBQTtmb250LXdlaWdodDpib2xkO2ZvbnQtZmFtaWx5OkFyaWFsLCBIZWx2ZXRpY2EsIE9wZW4gU2Fucywgc2Fucy1zZXJpZiwgbW9ub3NwYWNlO2ZvbnQtc2l6ZToxMHB0IH0gXV0+PC9zdHlsZT48L2RlZnM+PGcgaWQ9ImhvbGRlcl8xNTYzNDQ3NjI0MiI+PHJlY3Qgd2lkdGg9IjE5MiIgaGVpZ2h0PSIyMDAiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSI3MC4wNTQ2ODc1IiB5PSIxMDQuNSI+MTkyeDIwMDwvdGV4dD48L2c+PC9nPjwvc3ZnPg=="
+                             alt="...">
+                        <h3>100% Free Forever</h3>
+                        <p>Never pay for SSL again. Thanks to Letsencrypt the first non-profit CA.</p>
+                    </div>
+                </div>
+
+                <section style="margin-bottom: 80px">
+                    <h2 class="text-center">How It Works</h2>
+                    <hr>
+                    <h3>Let's Encrypt is the first free and open CA</h3>
+                    <p>We generate certificates using their ACME server by using domain validation.</p>
+                    <h3>Private Keys are generated in your browser and never transmitted.</h3>
+                    <p>For modern browsers we generate a private key in your browser using the Web Cryptography API and
+                        the private key is never transmitted. The private key also gets deleted off your browser after
+                        the certificate is generated. If your browser does not support the Web Cryptography API then the
+                        keys will be generated on the server using the latest version of OpenSSL and outputted over SSL
+                        and never stored. For the best security you are recommended to use a supported browser for
+                        client generation.</p>
+                </section>
+
+                <section>
+                    <h2 class="text-center">How It Works</h2>
+                    <hr>
+                    <h3>Let's Encrypt is the first free and open CA</h3>
+                    <p>We generate certificates using their ACME server by using domain validation.</p>
+                    <h3>Private Keys are generated in your browser and never transmitted.</h3>
+                    <p>For modern browsers we generate a private key in your browser using the Web Cryptography API and
+                        the private key is never transmitted. The private key also gets deleted off your browser after
+                        the certificate is generated. If your browser does not support the Web Cryptography API then the
+                        keys will be generated on the server using the latest version of OpenSSL and outputted over SSL
+                        and never stored. For the best security you are recommended to use a supported browser for
+                        client generation.</p>
+                </section>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}

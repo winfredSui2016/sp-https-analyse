@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <section style="margin-bottom: 80px" class="text-center">
+                    <div class="panel panel-default">
+                          <div class="panel-heading">细分统计</div>
+                          <div class="panel-body">
+                            <p>关于商派的全站加密的技术支持</p>
+                          </div>
+
+                          <!-- Table -->
+                          <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>站内页面链接数</th>
+                                    <th>站内资源数</th>
+                                    <th>站外页面链接数</th>
+                                    <th>站外资源数</th>
+                                    <th>https可访问站外资源数</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                              <tr>
+                                <th>{{ internal_link_count}}</th>
+                                <th>{{ internal_resource_count }}</th>
+                                <th>{{ external_resource_count }}</th>
+                             `` <th>{{ external_link_count }}</th>
+                                <th>{{ external_https_count }}</th>
+                              </tr>
+                          </tbody>
+                          </table>
+                    </div>
+                    <div class="panel panel-default">
+                          <div class="panel-heading">主域名{{ domainName }}的资源统计</div>
+                          <div class="panel-body">
+                            <p>{{ domainName }}(除去论坛和bbs等内容)</p>
+                          </div>
+                         <div class="btn-group" role="group" aria-label="...">
+                              <button type="button" class="btn btn-default" onclick="javascript:window.location.href='https_show'">返回</button>
+                         </div>
+                          <!-- Table -->
+                          <table class="table" id="detailMes" style="table-layout:fixed">
+                            <thead>
+                                <tr>
+                                    <th width="50%" style="text-align:center">资源URL</th>
+                                    <th width="20%" style="text-align:center">访问URL</th>
+                                    <th width="5%">资源类型</th>
+                                    <th width="15%">主域名</th>
+                                    <th width="5%">https访问</th>
+                                    <th width="5%">站内/站外</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                              {% if Resource %}
+                                {% for item in Resource %}
+                                    <tr>
+                                        <td style="
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    ">
+                                            <a href={{ item.URL }}
+                                                       {% if item.IsHttps %}
+                                                       style="color:green"
+                                                        {% endif %}   target="_blank">{{ item.URL }}</a>
+                                        </td>
+                                        <td style="
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    ">
+                                            <a href={{ item.ParentURL }} target="_blank">{{ item.ParentURL }}</a>
+                                        </td>
+                                            <td>
+                                            {% if item.ResourceType == 'link' %}
+                                                链接
+                                            {% elif item.ResourceType == 'css' %}
+                                                样式脚本
+                                            {% elif item.ResourceType == 'js' %}
+                                                JS脚本
+                                            {% elif item.ResourceType == 'image' %}
+                                                图片
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ item.Domain }}</td>
+                                        <td>{% if item.IsHttps %}
+                                                OK
+                                            {% else %}
+                                                Failed
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if item.Type == 'external' %}
+                                                站外
+                                            {% else %}
+                                                站内
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                          {% endif %}
+                          </tbody>
+                          </table>
+                    </div>
+                     <div class="btn-group" role="group" aria-label="...">
+                          <button type="button" class="btn btn-default" onclick="javascript:window.location.href='https_show'">返回</button>
+                     </div>
+                </section>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock %}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#detailMes').DataTable();
+    });
+</script>

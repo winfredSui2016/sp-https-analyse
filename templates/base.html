@@ -1,0 +1,41 @@
+{#{% load pipeline %}#}{% load staticfiles %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if title %}{{ title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="keywords" content="{% if keywords %}{{ keywords }}{% endif %}">
+    <meta name="description" content="{% if description %}{{ description }}{% endif %}">
+    <link rel="icon" href="{% static 'icon.png' %}">
+    {#{% stylesheet 'libraries' %}#}
+    <link rel="stylesheet" href="{% static 'app/css/bootstrap.css' %}" type="text/css"/>
+    {# <link rel="stylesheet" href="{% static 'app/css/bootstrap-theme.css' %}" type="text/css"/> #}
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" type="text/css"/>
+{#    <link rel="stylesheet" type="text/css" href="{% static 'app/css/dataTables.bootstrap.min.css' %}"/>#}
+</head>
+<body>
+
+{#{% if request.resolver_match.url_name != 'home' %}#}
+{#    {% include 'breadcrumb.html' %}#}
+{#{% endif %}#}
+<script>
+    var SETTINGS = {
+        EFFECTIVE_TLD_NAMES_JSON_URL: '{% static 'app/data/effective_tld_names.json' %}',
+        EFFECTIVE_TLD_NAMES_JSON: []
+    };
+</script>
+{#{% javascript 'libraries' %}#}
+<script src="{% static 'app/js/jquery-3.1.0.js' %}"></script>
+<script src="{% static 'app/js/bootstrap.js' %}"></script>
+{#<script type="text/javascript" src="{% static 'app/js/dataTables.bootstrap.min.js' %}"></script>#}
+<script src="{% static 'app/js/script.js' %}"></script>
+
+{% block content %}
+    <div>No content found</div>
+{% endblock %}
+
+{% include 'bottom.html' %}
+
+{% include 'analytics.html' %}
+
+</body>
+</html>

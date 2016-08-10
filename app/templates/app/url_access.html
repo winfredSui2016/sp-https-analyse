@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <section style="margin-bottom: 80px" class="text-center">
+                    <div class="panel panel-default">
+                          <div class="panel-heading">页面统计</div>
+                          <div class="panel-body">
+                            <p>当前页面<a href="{{ current_url }}">{{ current_url }}</a>,上级页面<a href="{% if pre_url %}{{ pre_url }}{% else %}#{% endif %}">{% if pre_url %}{{ pre_url }}{% else %}无{% endif %}</a></p>
+                          </div>
+                         <div class="btn-group" role="group" aria-label="...">
+                              <button type="button" class="btn btn-default" onclick="javascript:window.location={% if pre_url %}'url_access.html?URL={{ pre_url }}'{% else %}'https_show'{% endif %}">返回上一级</button>
+                         </div>
+                          <!-- Table -->
+                          <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>本页面站内资源数</th>
+                                    <th>本页面站外资源数</th>
+                                    <th>本页面https可访问站外资源数</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                              <tr>
+                                <th>{{ internal_resource_count }}</th>
+                                <th>{{ external_resource_count }}</th>
+                                <th>{{ external_https_count }}</th>
+                              </tr>
+                          </tbody>
+                          </table>
+                    </div>
+                    <div class="panel panel-default">
+                          <div class="panel-heading">站内资源汇总列表</div>
+
+                          <!-- Table -->
+                          <table class="table" id="detailMes" style="table-layout:fixed">
+                            <thead>
+                                <tr>
+                                    <th width="50%" style="text-align:center">资源域名</th>
+{#                                    <th width="25%" style="text-align:center">资源类型</th>#}
+                                    <th width="25%" style="text-align:center">数目</th>
+                                    <th width="25%" style="text-align:center">详情</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                          {% if internal_resource_list %}
+                              {% for item in internal_resource_list %}
+                              <tr>
+                                  <td style="
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    ">
+                                      {{ item.name }}
+                                  </td>
+                                  <td>
+                                      {{ item.count }}
+                                  </td>
+                                  <td>
+                                    <button type="button" class="btn btn-default"  onclick="javascript:window.open('url_list.html?Domain={{ item.Domain }}&ParentURL={{ current_url }}')">详情列表</button>
+                                  </td>
+                              </tr>
+                                  <tr class="append_list">
+                                  <td colspan="3" style="
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    ">
+                                  {% if item.list %}
+                                      {% for url in item.list %}
+                                          <a target="_blank" href={{ url }}>{{ url }}</a><br/>
+                                          {% endfor %}
+                                  {% endif %}
+                                  </td>
+                                  </tr>
+                              {% endfor %}
+                          {% endif %}
+                          </tbody>
+                          </table>
+                    </div>
+                    <div class="panel panel-default">
+                          <div class="panel-heading">站外资源汇总列表</div>
+
+                          <!-- Table -->
+                          <table class="table" id="detailMes" style="table-layout:fixed">
+                            <thead>
+                                <tr>
+                                    <th width="50%" style="text-align:center">资源域名</th>
+{#                                    <th width="25%" style="text-align:center">资源类型</th>#}
+                                    <th width="25%" style="text-align:center">数目</th>
+                                    <th width="25%" style="text-align:center">详情</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                          {% if external_resource_list %}
+                              {% for item in external_resource_list %}
+                              <tr>
+                                  <td  style="
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    ">
+                                      {{ item.name }}
+                                  </td>
+                                  <td>
+                                      {{ item.count }}
+                                  </td>
+                                  <td>
+                                      <button type="button" class="btn btn-default" onclick="javascript:window.open('url_list.html?URL={{ item.name }}&ParentURL={{ current_url }}')">详情列表</button>
+                                  </td>
+                              </tr>
+                                  <tr class="append_list">
+                                  <td colspan="3" style="
+        width:100%;
+        word-break:keep-all;/* 不换行 */
+        white-space:nowrap;/* 不换行 */
+        overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+        text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用*/
+    ">
+                                  {% if item.list %}
+                                      {% for url in item.list %}
+                                          <a target="_blank" href={{ url }}>{{ url }}</a><br/>
+                                          {% endfor %}
+                                  {% endif %}
+                                  </td>
+                                  </tr>
+                              {% endfor %}
+                          {% endif %}
+                          </tbody>
+                          </table>
+                    </div>
+                    <div class="panel panel-default">
+                          <div class="panel-heading">主域名列表</div>
+                          <!-- Table -->
+                          <table class="table" id="detailMes" style="table-layout:fixed">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">主域名</th>
+                                    <th style="text-align:center">资源总数</th>
+                                    <th style="text-align:center">详情</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                          {% if domain_list %}
+                              {% for item in domain_list %}
+                                <tr>
+                                    <td style="text-align:center">
+                                        <a href="https_detail.html?Domain={{ item.Domain }}"   target="_blank">{{ item.Domain }}</a>
+                                    </td>
+                                    <td style="text-align:center">
+                                        {{ item.ID }}
+                                    </td>
+                                     <td>
+                                          <button type="button" class="btn btn-default"  onclick="javascript:window.open('url_list.html?Domain={{ item.Domain }}&ParentURL={{ current_url }}')">详情列表</button>
+                                     </td>
+                                </tr>
+                              {% endfor %}
+                          {% endif %}
+                          </tbody>
+                          </table>
+                    </div>
+                    <div class="panel panel-default">
+                          <div class="panel-heading">站内链接列表</div>
+                            <div class="panel-body">
+                            <p>注意:除去论坛和bbs等内容</p>
+                            </div>
+                          <!-- Table -->
+                          <table class="table" id="detailMes" style="table-layout:fixed">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">URL</th>
+                                </tr>
+                            </thead>
+                          <tbody>
+                          {% if internal_link_list %}
+                              {% for item in internal_link_list %}
+                                  <tr>
+                                      <td>
+                                      <a href="url_access.html?URL={{ item.URL }}&ParentURL={{ current_url }}">{{ item.URL }}</a>
+                                      </td>
+                                  </tr>
+                              {% endfor %}
+                          {% endif %}
+                          </tbody>
+                          </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+
+    </div>
+
+
+{#<script type="text/javascript">#}
+{#    $(document).ready(function(){#}
+{#      $("table tr").click(function(){#}
+{#          if($(this).closest(".append_list").hasClass("hidden")){#}
+{#              $(this).closest(".append_list").show()#}
+{#          }else{#}
+{#              $(this).closest(".append_list").hide()#}
+{#          }#}
+{#      });#}
+{#    });#}
+{#</script>#}
+{% endblock %}
